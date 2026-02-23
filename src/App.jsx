@@ -10,13 +10,13 @@ const learningData = {
     icon: <Code2 size={20} />,
     color: "#3776ab",
     gradient: "linear-gradient(135deg, #3776ab 0%, #ffd43b 100%)",
-    current_week: 5,
-    current_topic: "File I/O - Reading/Writing Files",
-    total_lessons: 12,
-    lessons_completed: 12,
-    streak_days: 13,
+    current_week: 7,
+    current_topic: "OOP Inheritance & Special Methods - Extending classes with super()",
+    total_lessons: 14,
+    lessons_completed: 14,
+    streak_days: 15,
     started: "2026-02-09",
-    last_completed: "2026-02-21",
+    last_completed: "2026-02-23",
     lessons: [
       { day: 1, title: "Intro to Functions", done: true },
       { day: 2, title: "Parameters + Return Values", done: true },
@@ -29,28 +29,43 @@ const learningData = {
       { day: 9, title: "APIs with requests", done: true },
       { day: 10, title: "OOP Basics - Classes", done: true },
       { day: 11, title: "Unit Testing - pytest", done: true },
-      { day: 12, title: "File I/O - open(), CSV", done: true }
+      { day: 12, title: "File I/O - open(), CSV", done: true },
+      { day: 13, title: "Regular Expressions - re module", done: true },
+      { day: 14, title: "OOP Inheritance - super(), __str__", done: true }
     ],
     todayLesson: {
-      title: "File I/O Mastery",
-      description: "Learn to read/write files, work with CSV data, and use context managers.",
-      code: `# Reading a file line by line
-with open('data.txt', 'r') as file:
-    for line in file:
-        print(line.strip())
+      title: "OOP Inheritance Mastery",
+      description: "Extend classes with inheritance, use super() to call parent methods, and implement special methods like __str__ and __repr__.",
+      code: `# Inheritance in Python - Extending classes
 
-# Writing to a file
-with open('output.txt', 'w') as file:
-    file.write('Hello, World!')
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def speak(self):
+        raise NotImplementedError("Subclasses must implement speak()")
+    
+    def __str__(self):
+        return f"{self.name} ({self.age} years old)"
 
-# Working with CSV
-import csv
+class Dog(Animal):
+    def __init__(self, name, age, breed):
+        super().__init__(name, age)  # Call parent constructor
+        self.breed = breed
+    
+    def speak(self):
+        return f"{self.name} says Woof!"
+    
+    def __repr__(self):
+        return f"Dog('{self.name}', {self.age}, '{self.breed}')"
 
-with open('data.csv', 'r') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        print(row['name'])`,
-      exercise: "Write a function that reads a CSV file and returns the sum of a numeric column."
+# Usage
+buddy = Dog("Buddy", 3, "Golden Retriever")
+print(buddy)        # Uses __str__: Buddy (3 years old)
+print(repr(buddy))  # Uses __repr__: Dog('Buddy', 3, 'Golden Retriever')
+print(buddy.speak())  # Buddy says Woof!`,
+      exercise: "Create a Cat class that inherits from Animal. Add a 'color' attribute and override speak() to return 'Meow!'."
     }
   },
   math_for_ai: {
@@ -59,16 +74,16 @@ with open('data.csv', 'r') as file:
     color: "#ff6b6b",
     gradient: "linear-gradient(135deg, #ff6b6b 0%, #feca57 100%)",
     current_module: "probability_stats",
-    current_topic: "Bayes' Theorem - Updating beliefs with evidence",
-    total_lessons: 12,
-    lessons_completed: 12,
-    streak_days: 13,
+    current_topic: "Covariance and Correlation - Measuring relationships between variables",
+    total_lessons: 14,
+    lessons_completed: 14,
+    streak_days: 15,
     started: "2026-02-09",
-    last_completed: "2026-02-21",
+    last_completed: "2026-02-23",
     module_progress: {
       "Linear Algebra": 100,
       "Calculus": 100,
-      "Probability & Statistics": 75,
+      "Probability & Statistics": 100,
       "Optimization": 0
     },
     lessons: [
@@ -83,31 +98,40 @@ with open('data.csv', 'r') as file:
       { day: 9, title: "Convexity", done: true },
       { day: 10, title: "Train/Validation/Test Split", done: true },
       { day: 11, title: "Normal Distribution", done: true },
-      { day: 12, title: "Bayes' Theorem", done: true }
+      { day: 12, title: "Bayes' Theorem", done: true },
+      { day: 13, title: "Expectation and Variance", done: true },
+      { day: 14, title: "Covariance and Correlation", done: true }
     ],
     todayLesson: {
-      title: "Bayes' Theorem Deep Dive",
-      description: "Update your beliefs with evidence using P(A|B) = P(B|A) × P(A) / P(B)",
-      code: `# Bayes' Theorem in Python
-# P(Disease|Positive) = P(Positive|Disease) * P(Disease) / P(Positive)
+      title: "Covariance & Correlation Deep Dive",
+      description: "Measure how two variables move together. Essential for feature selection and understanding data relationships.",
+      code: `# Covariance and Correlation in Python
+import numpy as np
 
-def bayes_theorem(prior, likelihood, evidence):
-    """
-    prior: P(A) - initial belief
-    likelihood: P(B|A) - probability of evidence given hypothesis
-    evidence: P(B) - total probability of evidence
-    """
-    posterior = (likelihood * prior) / evidence
-    return posterior
+# Sample data: Study hours vs Exam scores
+study_hours = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+exam_scores = np.array([50, 55, 65, 70, 75, 85, 90, 95])
 
-# Example: Medical test
-p_disease = 0.01  # 1% prevalence
-p_pos_given_disease = 0.95  # 95% true positive rate
-p_pos = 0.059  # Total positive rate
+# Calculate covariance
+covariance = np.cov(study_hours, exam_scores)[0, 1]
+print(f"Covariance: {covariance:.2f}")
+# Positive covariance: as study hours increase, scores tend to increase
 
-p_disease_given_pos = bayes_t(p_disease, p_pos_given_disease, p_pos)
-print(f"P(Disease|Positive) = {p_disease_given_pos:.1%}")  # ~16.1%`,
-      exercise: "A spam filter has 95% accuracy. If 10% of emails are spam, what's the probability an email is spam given it's flagged?"
+# Calculate correlation coefficient (-1 to 1)
+correlation = np.corrcoef(study_hours, exam_scores)[0, 1]
+print(f"Correlation: {correlation:.4f}")
+# 0.99 = very strong positive relationship
+
+# Manual calculation of correlation
+def correlation_coefficient(x, y):
+    """Pearson correlation coefficient"""
+    x_mean, y_mean = np.mean(x), np.mean(y)
+    numerator = np.sum((x - x_mean) * (y - y_mean))
+    denominator = np.sqrt(np.sum((x - x_mean)**2) * np.sum((y - y_mean)**2))
+    return numerator / denominator
+
+print(f"Manual correlation: {correlation_coefficient(study_hours, exam_scores):.4f}")`,
+      exercise: "Given temperature [20, 22, 25, 28, 30] and ice cream sales [100, 120, 150, 180, 200], calculate the correlation. Is it positive or negative?"
     }
   }
 }
@@ -246,7 +270,7 @@ const StreakCalendar = () => {
       <h3><Flame size={18} style={{ color: '#ff6b6b' }} /> Learning Streak</h3>
       <div className="calendar-grid">
         {days.map((date, idx) => {
-          const isActive = idx >= 17 // Last 13 days active based on data
+          const isActive = idx >= 15 // Last 15 days active based on data
           return (
             <motion.div
               key={idx}
@@ -261,7 +285,7 @@ const StreakCalendar = () => {
           )
         })}
       </div>
-      <p className="streak-text">13 days strong! Keep it up!</p>
+      <p className="streak-text">15 days strong! Module 3 complete!</p>
     </div>
   )
 }
@@ -293,11 +317,11 @@ function App() {
             <div className="summary-card">
               <h3><TrendingUp size={18} /> Overall Progress</h3>
               <div className="summary-stat">
-                <span className="summary-number">24</span>
+                <span className="summary-number">28</span>
                 <span className="summary-label">Lessons Completed</span>
               </div>
               <div className="summary-stat">
-                <span className="summary-number">13</span>
+                <span className="summary-number">15</span>
                 <span className="summary-label">Day Streak</span>
               </div>
               <div className="summary-stat">
@@ -305,14 +329,14 @@ function App() {
                 <span className="summary-label">Active Tracks</span>
               </div>
             </div>
-            
+
             <div className="next-steps">
               <h3><Calendar size={18} /> Recommended Next</h3>
               <ul>
-                <li>Complete File I/O exercises</li>
-                <li>Practice Bayes' Theorem problems</li>
-                <li>Review Gradient Descent</li>
-                <li>Start Optimization module</li>
+                <li>Practice OOP inheritance problems</li>
+                <li>Build a class hierarchy project</li>
+                <li>Review covariance/correlation</li>
+                <li>Start Optimization module (Module 4)</li>
               </ul>
             </div>
           </div>
@@ -320,7 +344,7 @@ function App() {
       </main>
       
       <footer className="app-footer">
-        <p>Built by Alice | Nightly Build 2026-02-22</p>
+        <p>Built by Alice | Nightly Build 2026-02-24 | v2.0 - Week 7 Complete</p>
       </footer>
     </div>
   )
